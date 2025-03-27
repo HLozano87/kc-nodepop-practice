@@ -18,3 +18,14 @@ export const createProduct = async (req, res, next) => {
     next(error)
   }
 }
+
+export const deleteProduct = async (req, res, next) => {
+  try {
+    const { id } = req.params
+    await Product.deleteOne({ _id: id })
+    
+    res.redirect('/')
+  } catch (error) {
+    next(error)
+  }
+}
