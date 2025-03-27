@@ -1,14 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= title %></title>
-  <link rel='stylesheet' href='/stylesheets/style.css' />
-</head>
-<body>
-  <h1><%= title %></h1>
-  <p>Welcome to <%= title %></p>
-  
-</body>
-</html>
+<%- include('header') %>
+
+<% products.forEach(p=> { %>
+  <div class="container">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="col">
+        <div class="card" id=<% p._id %>>
+          <img src="<%= p.image  || 'https://picsum.photos/300/200?random=' + p._id %>" class="card-img-top"
+            alt="Imagen aleatoria">
+          <div class="card-body">
+            <h5 class="card-title">Name: <%= p.name %>
+            </h5>
+            <p class="card-text">Tags: <%= p.tags %>
+            </p>
+            <p class="card-text">Price: <%= p.price %>€</p>
+            <form action="/deleteProduct/<%= p._id %>" method="post">
+              <button type="submit" onclick="return confirm('¿Seguro desea eliminar producto?')">❌</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% }) %>
+
+<%- include('footer') %>
