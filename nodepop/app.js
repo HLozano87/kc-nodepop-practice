@@ -40,7 +40,7 @@ app.use(express.static(path.join(import.meta.dirname, 'public')));
 app.get('/', homeController.index)
 // Products
 app.get('/new-product', productController.index)
-app.post('/new-product', productController.createProduct)
+app.post('/new-product', productController.validateParams, productController.createProduct)
 app.post('/deleteProduct/:id', productController.deleteProduct)
 
 app.get('/login', loginController.index)

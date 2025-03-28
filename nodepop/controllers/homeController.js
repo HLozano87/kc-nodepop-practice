@@ -10,4 +10,3 @@ export const index = async (req, res, next) => {
     next(error)
   }
 }
-
