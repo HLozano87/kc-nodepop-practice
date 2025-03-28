@@ -15,3 +15,9 @@ npm install
 ```
 
 This will install all the dependencies needed to start the project.
+
+## Run MongoDB on MacOS or Linux:
+
+```sh
+./bin/mongod --dbpath ./data
+```
