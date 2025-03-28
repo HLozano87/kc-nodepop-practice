@@ -20,7 +20,7 @@ await connection.close()
 async function initDBNodepop() {
   const products = await Product.deleteMany()
   console.log(`Delete ${products.deletedCount} products.`)
-  
+
   const randomImg = Math.floor(Math.random() * 1000)
   const insertProduct = await Product.insertMany([
     {
@@ -39,7 +39,7 @@ async function initUsers() {
   console.log(`Delete ${users.deletedCount} users.`)
 
   const insertUsers = await User.insertMany([
-    { email: 'user@example.com', password: '1234' }
+    { email: 'user@example.com', password: await User.hashPassword('1234') },
   ])
   console.log(`Insert ${insertUsers.length} users.`)
 }
