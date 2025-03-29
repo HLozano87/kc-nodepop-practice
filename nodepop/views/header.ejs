@@ -24,12 +24,18 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/">Home</a>
           </li>
+          <% if(session.userId) { %>
           <li class="nav-item">
             <a class="nav-link" href="/new-product">New Product</a>
           </li>
+          <% } %>
           
         </ul>
+        <% if(!session.userId) { %>
           <a href="/login" class="btn btn-success">Login</a>
+        <% } else { %>
+          <a href="/logout" class="btn btn-outline-danger">Logout</a>
+        <% } %>
       </div>
     </div>
   </nav>

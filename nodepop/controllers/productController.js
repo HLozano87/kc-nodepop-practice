@@ -24,8 +24,10 @@ export const createProduct = async (req, res, next) => {
   try {
     const randomImage = `https://picsum.photos/300/200?random=${Math.floor(Math.random() * 1000)}`;
     const { name, price, image, tags } = req.body
+    const userId = req.session.userId
+
     const productImage = image || randomImage
-    const product = new Product({ name, price, image: productImage, tags })
+    const product = new Product({ name, price, image: productImage, tags, owner: userId })
 
     await product.save()
     console.log(product);
@@ -37,8 +39,9 @@ export const createProduct = async (req, res, next) => {
 
 export const deleteProduct = async (req, res, next) => {
   try {
-    const { id } = req.params
-    await Product.deleteOne({ _id: id })  // TODO deleteOne owner:id
+    const userId = req.session.userId
+    const productId = req.params.id
+    await Product.deleteOne({ _id: productId, owner: userId })
     
     res.redirect('/')
   } catch (error) {

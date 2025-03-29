@@ -12,6 +12,7 @@ import connectMongoose from './lib/connectMongoose.js'
 import * as homeController from './controllers/homeController.js'
 import * as productController from './controllers/productController.js'
 import * as loginController from './controllers/loginController.js'
+import * as sessionManager from './lib/sessionManager.js'
 
 await connectMongoose()
 console.log('Connected to MongoDB')
@@ -34,16 +35,24 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(import.meta.dirname, 'public')));
 
+// Middlewares to sessionUsers
+app.use(sessionManager.sessionUser)
+app.use(sessionManager.useSessionUsersInViews)
+
 /**
  * Routes definitions
  */
 app.get('/', homeController.index)
+
 // Products
 app.get('/new-product', productController.index)
 app.post('/new-product', productController.validateParams, productController.createProduct)
 app.post('/deleteProduct/:id', productController.deleteProduct)
 
+// Login
 app.get('/login', loginController.index)
+app.post('/login', loginController.loginUser)
+app.get('/logout', loginController.logout)
 
 
 
