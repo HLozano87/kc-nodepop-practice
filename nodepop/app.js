@@ -44,17 +44,15 @@ app.use(sessionManager.useSessionUsersInViews)
  */
 app.get('/', homeController.index)
 
-// Products
-app.get('/new-product', productController.index)
-app.post('/new-product', productController.validateParams, productController.createProduct)
-app.post('/deleteProduct/:id', productController.deleteProduct)
-
 // Login
 app.get('/login', loginController.index)
 app.post('/login', loginController.loginUser)
 app.get('/logout', loginController.logout)
 
-
+// Products User Auth
+app.get('/user/new', sessionManager.guard, productController.index)
+app.post('/user/new', sessionManager.guard, productController.validateParams, productController.createProduct)
+app.post('/user/delete/:productId', sessionManager.guard, productController.deleteProduct)
 
 
 // catch 404 and forward to error handler

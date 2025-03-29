@@ -9,6 +9,7 @@ export const index = (req, res, next) => {
 export async function loginUser (req, res, next) {
   try {
     const { email, password } = req.body
+    const redir = req.query.redir
     
     if (!email || !password) {
       res.locals.error = 'Email and password required.'
@@ -24,7 +25,8 @@ export async function loginUser (req, res, next) {
     }
     req.session.userId = user.id
 
-    res.redirect('/')
+    res.redirect(redir ? redir: '/')
+
   } catch (error) {
     next(error)
     return
@@ -33,7 +35,7 @@ export async function loginUser (req, res, next) {
 }
 
 export function logout(req, res, next) {
-  req.session.destroy(err => {
+  req.session.regenerate(err => {
     if (err) {
       next(err)
       return
