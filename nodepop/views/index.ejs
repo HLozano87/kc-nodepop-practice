@@ -18,7 +18,7 @@
               <h5 class="card-title"><%= p.name %></h5>
               <p class="card-text"><%= p.tags %></p>
               <p class="card-text"><%= p.price %>€</p>
-              <form action="/deleteProduct/<%= p._id %>" method="post">
+              <form action="/user/delete/<%= p._id %>" method="post">
                 <button type="submit" onclick="return confirm('¿Seguro desea eliminar producto?')">❌</button>
               </form>
             </div>
