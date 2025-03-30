@@ -10,7 +10,9 @@ export const validateParams = [
   body('price')
     .custom( value => value > 0 ).withMessage('El precio debe ser un número mayor a 0'),
   body('image').optional().isString().withMessage('La URL de la imagen debe ser válida'),
-  body('tags').isString().withMessage('Las etiquetas deben ser un arreglo de strings'),
+  body('tags')
+    .isString()
+    .withMessage('Las etiquetas deben ser un arreglo de strings'),
   (req, res, next) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {

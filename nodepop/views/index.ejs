@@ -12,11 +12,11 @@
       <div class="row row-cols-1 row-cols-md-3 g-4">
         <div class="col">
           <div class="card" id=<% p._id %>>
-            <img src="<%= p.image  || 'https://picsum.photos/300/200?random=' + p._id %>" class="card-img-top"
+            <img src="<%= p.image  || `https://picsum.photos/id/${Math.floor(Math.random() * 1084)}/300/200` %>" class="card-img-top"
               alt="Imagen aleatoria">
             <div class="card-body">
               <h5 class="card-title"><%= p.name %></h5>
-              <p class="card-text"><%= p.tags %></p>
+              <p class="card-text"><%= p.tags.join(', ') %></p>
               <p class="card-text"><%= p.price %>€</p>
               <form action="/user/delete/<%= p._id %>" method="post">
                 <button type="submit" onclick="return confirm('¿Seguro desea eliminar producto?')">❌</button>

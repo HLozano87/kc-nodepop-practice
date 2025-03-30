@@ -2,6 +2,7 @@ import readline from 'node:readline/promises'
 import connectMongoose from './lib/connectMongoose.js'
 import Product from './models/Product.js'
 import User from './models/User.js'
+import Chance from 'chance'
 
 
 const connection = await connectMongoose()
@@ -13,23 +14,27 @@ if (answer.toLowerCase() !== 'y') {
   process.exit()
 }
 
-await initUsers()
-await initDBNodepop()
+const userId = await initUsers()
+await initDBNodepop(userId)
 await connection.close()
 
-async function initDBNodepop() {
+async function initDBNodepop(userId) {
+
+  const chance = new Chance()
   const products = await Product.deleteMany()
   console.log(`Delete ${products.deletedCount} products.`)
 
-  const randomImg = Math.floor(Math.random() * 1000)
-  const insertProduct = await Product.insertMany([
+  const availableTags = ['Work', 'LifeStyle', 'Motor', 'Mobile']
+  const newProduct = Array.from({length: 10}, () => (
     {
-      name: 'Mobile',
-      price: 440,
-      image: `https://picsum.photos/id/${randomImg}/300/200`,
-      tags: ['smartphone']
-    },
-  ])
+      name: chance.word(),
+      price: chance.integer({ min: 1, max: 3000}),
+      image: `https://picsum.photos/id/${Math.floor(Math.random() * 1084)}/300/200`,
+      tags: chance.pickset(availableTags, chance.integer({ min: 1, max: availableTags.length })),
+      owner: userId
+    }
+  ))
+  const insertProduct = await Product.insertMany(newProduct)
   console.log(`Insert ${insertProduct} products. \nTotal products insert ${insertProduct.length}.`)
 
 }
@@ -42,6 +47,7 @@ async function initUsers() {
     { email: 'user@example.com', password: await User.hashPassword('1234') },
   ])
   console.log(`Insert ${insertUsers.length} users.`)
+  return insertUsers[0]._id
 }
 
 async function ask(question) {
@@ -49,7 +55,7 @@ async function ask(question) {
     input: process.stdin,
     output: process.stdout
   })
-  const askResult = await rl.question(question)
+  const askResult = await rl.question(question + ' ')
   rl.close()
   return askResult
 }
