@@ -8,10 +8,14 @@ Access the project in windows with:
 cd /project_path/nodepop
 ```
 
-Once inside the path run the command ```code .``` this will open the vscode to the **"nodepop ”** folder and from the windows console run the following command:
+Once inside the path run the command ```code .``` this will open the vscode to the **"nodepop ”** folder and from the windows console run the following command for install dependencies with:
 
 ```sh
 npm install
+
+or
+
+npm i
 ```
 
 This will install all the dependencies needed to start the project.
