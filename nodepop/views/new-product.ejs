@@ -4,18 +4,19 @@
     <h2>New Product</h2>
 
     <form action="/user/new" method="post">
-      <div class="form-product">
-        <label for="name">Nombre del producto:</label>
+      <div class="form-control col">
+        <label for="name">Name product:</label>
         <input type="text" id="name" name="name" placeholder="Ej: iPhone 12" required />
       </div>
   
-      <div class="form-product">
-        <label for="price">Precio (€):</label>
+      <div class="form-control col">
+        <label for="price">Price (€):</label>
         <input type="number" id="price" name="price" placeholder="Ej: 500" required />
       </div>
   
-      <div class="form-product">
-        <label for="tags">Categorías (selecciona una o varias):</label>
+      <div class="form-control col">
+        <label for="tags">Tags:</label>
+        <br>
         <select name="tags" id="tags" multiple size="4" required>
           <option value="work">Work</option>
           <option value="lifestyle">Lifestyle</option>
@@ -24,18 +25,16 @@
         </select>
       </div>
   
-      <div class="form-product">
-        <label for="image">Nombre de la imagen:</label>
+      <div class="form-control">
+        <label for="image">Image Auto:</label>
         <div class="image-input-container">
-          <input type="" id="image" name="image" />
-          <button type="button" id="generateImageBtn" class="btn btn-secondary">Generar Imagen</button>
+          <input type="file" id="image" name="image"  disabled/>
         </div>
-        <div id="imagePreview" class="image-preview"></div>
       </div>
   
       <div class="form-actions">
-        <button type="submit" class="btn btn-primary">Publicar Producto</button>
-        <a href="/" class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-primary">Upload</button>
+        <a href="/" class="btn btn-secondary">Cancel</a>
       </div>
     </form>
   </div>

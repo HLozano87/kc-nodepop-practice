@@ -6,7 +6,14 @@
 
       <div class="mb-3">
         <label for="email" class="form-label">Email</label>
-        <input type="email" name="email" value="<%= email %>" class="form-control" id="email" aria-describedby="emailHelp">
+        <input 
+          type="email"
+          name="email"
+          value="<%= email %>"
+          pattern="^[a-zA-Z0-9_-]{1,}@[a-zA-Z]+(-[a-zA-Z]+)*\.(com|net|org|edu|gov|io|co|us|uk|de|fr|es|it|jp|br|ca|au|mx)$"
+          class="form-control"
+          id="email"
+          aria-describedby="emailHelp">
       </div>
 
       <div class="mb-3">
