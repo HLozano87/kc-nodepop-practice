@@ -3,6 +3,7 @@ import connectMongoose from './lib/connectMongoose.js'
 import Product from './models/Product.js'
 import User from './models/User.js'
 import Chance from 'chance'
+import "dotenv/config";
 
 
 const connection = await connectMongoose()
